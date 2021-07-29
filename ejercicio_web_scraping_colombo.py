@@ -29,7 +29,7 @@ BOTON_OJO_ID = "/html/body/div[1]/div[2]/div[1]/div[2]/div/div/div/form/table/tb
 TIEMPO_ESPERA_CAPTCHA = 60
 TIEMPO_ESPERA_NUEVA_ACCION = 2
 TIEMPO_ESPERA_NUEVOS_EXPEDIENTES = 60
-CANTIDAD_EXPEDIENTES  = 10
+CANTIDAD_EXPEDIENTES  = 100
 SITUCAION_REQUERIDA = ["EN DESPACHO", "EN LETRA", "GIRO"]
 EXPEDIENTES_FINALES = []
 FECHA_LIMITE = pd.to_datetime("31/12/2019")
@@ -67,7 +67,7 @@ def main():
     parte = driver.find_element_by_name(PARTE_ID)
     parte.send_keys(VALOR_BUSQUEDA)
 
-    # Esperamos 30 segs para la CAPTCHA
+    # Esperamos un tiempo para la CAPTCHA
     time.sleep(TIEMPO_ESPERA_CAPTCHA)
 
     # Clickeamos boton consultar
@@ -104,12 +104,10 @@ def main():
                     boton_volver = driver.find_element_by_xpath('/html/body/div[1]/div[2]/form/div/div[1]/div/div/a')
                     boton_volver.click()
                     contador = contador + 1
-                    print("apendeo")
                     time.sleep(5)
                 except:
                     print("error")
-                    continue
-        print(contador)       
+                    continue      
         if (contador >= CANTIDAD_EXPEDIENTES):
             break
         boton_siguiente = driver.find_element_by_id(BOTON_SIGUIENTE_ID)
